@@ -18,3 +18,6 @@ https://trello.com/b/U9wyz7VG/lets-talk
 
 Link instrucciones DataTable:
 https://www.itsolutionstuff.com/post/laravel-7-yajra-datatables-exampleexample.html
+
+GIT
+https://github.com/juanDavidVargas/letsTalk.git
