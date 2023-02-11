@@ -21,3 +21,9 @@ https://www.itsolutionstuff.com/post/laravel-7-yajra-datatables-exampleexample.h
 
 GIT
 https://github.com/juanDavidVargas/letsTalk.git
+
+Creo la Nueva rama a partir de la rama "main"
+git checkout -b jgmc main
+
+Le informo al Git la creación de la nueva rama
+git push --set-upstream origin jgmc
