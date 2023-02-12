@@ -32,8 +32,9 @@ class DisponibilidadShow implements Responsable
                                         'estados.descripcion_estado'
                                     )
                                     ->where('usuarios.estado', 1)
-                                    ->where('usuarios.deleted_at', null)
-                                    ->where('evento_agenda_entrenador.deleted_at', null)
+                                    ->whereNull('usuarios.deleted_at')
+                                    ->whereNull('evento_agenda_entrenador.deleted_at')
+                                    ->whereIn('evento_agenda_entrenador.state', [1,2,3])
                                     ->orderBy('evento_agenda_entrenador.id', 'DESC')
                                     ->get();
             return $disponibilidad;

@@ -30,3 +30,5 @@ Route::delete('eliminar_evento', 'entrenador\EntrenadorController@deleteEvent')-
 Route::post('cargar_info_evento', 'entrenador\EntrenadorController@cargarInfoEventoPorId')->name('cargar_info_evento');
 Route::get('disponibilidad_entrenadores', 'admin\AdministradorController@disponibilidades')->name('administrador.disponibilidad_entrenadores');
 Route::get('disponibilidad', 'estudiante\EstudianteController@disponibilidad')->name('estudiante.disponibilidad');
+
+Route::post('actualizar_disponibilidad_entrenador', 'admin\AdministradorController@actualizarDisponibilidad')->name('actualizar_evento');

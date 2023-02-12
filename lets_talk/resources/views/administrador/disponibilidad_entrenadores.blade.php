@@ -66,5 +66,87 @@
         });
     });
 
+    function actualizarEstadoEvento(id_evento, id_disponibilidad)
+    {
+        $.ajax({
+            async: true,
+            url: "{{route('actualizar_evento')}}",
+            type: "POST",
+            dataType: "JSON",
+            data: {
+                'disponibilidad_id': id_disponibilidad,
+                'evento_id': id_evento
+            },
+            beforeSend: function()
+            {
+                $("#loaderGif").show();
+                $("#loaderGif").removeClass('ocultar');
+            },
+            success: function(response)
+            {
+                if(response == "error_exception")
+                {
+                    Swal.fire({
+                        position: 'center',
+                        title: 'Error!',
+                        html:  'An error occurred, try again, if the problem persists contact support.',
+                        type: 'info',
+                        showCancelButton: false,
+                        showConfirmButton: false,
+                        allowOutsideClick: false,
+                        allowEscapeKey:false,
+                        timer: 5000
+                    });
+
+                    $("#loaderGif").hide();
+
+                    return;
+                }
+
+                if(response == "error_update")
+                {
+                    Swal.fire({
+                        position: 'center',
+                        title: 'Error!',
+                        html:  'An error occurred, try again, if the problem persists contact support.',
+                        type: 'info',
+                        showCancelButton: false,
+                        showConfirmButton: false,
+                        allowOutsideClick: false,
+                        allowEscapeKey:false,
+                        timer: 5000
+                    });
+
+                    $("#loaderGif").hide();
+
+                    return;
+                }
+
+                if(response == "success")
+                {
+                    Swal.fire({
+                        position: 'center',
+                        title: 'Success!',
+                        html:  "The state has been successfully updated",
+                        type: 'success',
+                        showCancelButton: false,
+                        showConfirmButton: false,
+                        allowOutsideClick: false,
+                        allowEscapeKey:false,
+                        timer: 3000
+                    });
+
+                    $("#loaderGif").hide();
+
+                    setTimeout(function(){
+                        window.location.reload();
+                    }, 3500);
+                    return;
+                }
+            }
+
+        });
+    }
+
 </script>
 @endsection

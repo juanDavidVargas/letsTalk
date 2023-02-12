@@ -87,12 +87,12 @@ class UsuariosUpdate implements Responsable
 
                 if($usuario_update)
                 {
-                    db::connection('mysql')->commit();
+                    DB::connection('mysql')->commit();
                     alert()->success('Successfull Process', 'User updated correctly.');
                     return redirect()->to(route('administrador.index'));
 
                 } else {
-                    db::connection('mysql')->rollback();
+                    DB::connection('mysql')->rollback();
                     alert()->error('error', 'An error occurred updating the user, try again, if the problem persists contact support.');
                     return redirect()->to(route('administrador.index'));
                 }

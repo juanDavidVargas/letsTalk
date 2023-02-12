@@ -11,72 +11,81 @@ class LoginStore implements Responsable
 {
     public function toResponse($request)
     {
-        $username = request('username', null);
-        $pass = request('pass', null);
-
-        if(!isset($username) || empty($username) || is_null($username) ||
-           !isset($pass) || empty($pass) || is_null($pass))
+        try
         {
-            alert()->error('Error','Username and Password are required!');
-            return back();
-        }
+            $username = request('username', null);
+            $pass = request('pass', null);
 
-        $user = $this->consultarUsuario($username);
-
-        if(isset($user) && !empty($user) && !is_null($user))
-        {
-            $cont_clave_erronea = $user->clave_fallas;
-
-            if($user->clave_fallas >= 4)
+            if(!isset($username) || empty($username) || is_null($username) ||
+               !isset($pass) || empty($pass) || is_null($pass))
             {
-                $this->inactivarUsuario($user->id_user);
-            }
-
-            if($user->estado == 0 || $user->estado == false ||
-                $user->estado == "false")
-            {
-                alert()->error('Error','Username ' . $username . ' is locked, please contact the administrator to unlock it');
+                alert()->error('Error','Username and Password are required!');
                 return back();
             }
 
-            if(Hash::check($pass, $user->password))
+            $user = $this->consultarUsuario($username);
+
+            if(isset($user) && !empty($user) && !is_null($user))
             {
-                // Rol entrenador
-                if($user->id_rol == 1 || $user->id_rol == "1")
-                {
-                    // Creamos las variables de sesion
-                    $this->crearVariablesSesion($user);
-                    return redirect()->to(route('trainer.create'));
+                $cont_clave_erronea = $user->clave_fallas;
 
-                   // Rol Estudiante
-                } else if($user->id_rol == 3 || $user->id_rol == "3")
+                if($user->clave_fallas >= 4)
                 {
-                     // Creamos las variables de sesion
-                     $this->crearVariablesSesion($user);
-                     return redirect()->to(route('estudiante.index'));
+                    $this->inactivarUsuario($user->id_user);
+                }
 
-                } // Rol Administrador
-                else if($user->id_rol == 2 || $user->id_rol == "2")
+                if($user->estado == 0 || $user->estado == false ||
+                    $user->estado == "false")
                 {
-                    // Creamos las variables de sesion
-                    $this->crearVariablesSesion($user);
-                    return redirect()->to(route('administrador.index'));
+                    alert()->error('Error','Username ' . $username . ' is locked, please contact the administrator to unlock it');
+                    return back();
+                }
+
+                if(Hash::check($pass, $user->password))
+                {
+                    // Rol entrenador
+                    if($user->id_rol == 1 || $user->id_rol == "1")
+                    {
+                        // Creamos las variables de sesion
+                        $this->crearVariablesSesion($user);
+                        return redirect()->to(route('trainer.create'));
+
+                       // Rol Estudiante
+                    } else if($user->id_rol == 3 || $user->id_rol == "3")
+                    {
+                         // Creamos las variables de sesion
+                         $this->crearVariablesSesion($user);
+                         return redirect()->to(route('estudiante.index'));
+
+                    } // Rol Administrador
+                    else if($user->id_rol == 2 || $user->id_rol == "2")
+                    {
+                        // Creamos las variables de sesion
+                        $this->crearVariablesSesion($user);
+                        return redirect()->to(route('administrador.index'));
+                    } else {
+
+                        // Si el rol es diferente a los mencionados, mostramos mensaje
+                        alert()->error('Error','Username ' . $username . ' has an invalid role!');
+                        return back();
+                    }
+
                 } else {
-
-                    // Si el rol es diferente a los mencionados, mostramos mensaje
-                    alert()->error('Error','Username ' . $username . ' has an invalid role!');
+                    $cont_clave_erronea += 1;
+                    $this->actualizarClaveFallas($user->id_user, $cont_clave_erronea);
+                    alert()->error('Error','Invalid Credentials');
                     return back();
                 }
 
             } else {
-                $cont_clave_erronea += 1;
-                $this->actualizarClaveFallas($user->id_user, $cont_clave_erronea);
-                alert()->error('Error','Invalid Credentials');
+                alert()->error('Error','No records were found for the username ' . $username);
                 return back();
             }
 
-        } else {
-            alert()->error('Error','No records were found for the username ' . $username);
+        } catch (Exception $e)
+        {
+            dd($e);
+            alert()->error('Error', 'An error has occurred, try again, if the problem persists contact support.');
             return back();
         }
     }
@@ -96,7 +105,6 @@ class LoginStore implements Responsable
 
             return User::where('usuario', $username)
                         ->whereNull('deleted_at')
-                        ->get()
                         ->first();
 
         } catch (Exception $e)

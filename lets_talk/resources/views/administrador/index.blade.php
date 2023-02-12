@@ -131,8 +131,6 @@
 <script src=//cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js></script>
 <script src=//cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js></script>
 
-
-
 <script>
 
     $( document ).ready(function() {
@@ -224,6 +222,7 @@
                             });
 
                             $("#loaderGif").hide();
+                            return;
                         }
 
                         if(response == 0 || response == "0")
@@ -241,6 +240,7 @@
                             });
 
                             $("#loaderGif").hide();
+                            return;
                         }
 
                         if(response == "success")
@@ -262,6 +262,7 @@
                             setTimeout(function(){
                                 window.location.reload();
                             }, 3000);
+                            return;
                         }
                     }
                 });

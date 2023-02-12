@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Responses\administrador\DisponibilidadShow;
+use App\Http\Responses\administrador\DisponibilidadUpdate;
 use App\Http\Responses\administrador\UsuariosShow;
 use App\Http\Responses\administrador\UsuariosStore;
 use App\Http\Responses\administrador\UsuariosUpdate;
@@ -399,6 +400,23 @@ class AdministradorController extends Controller
         {
             alert()->error("Ha ocurrido un error!");
             return redirect()->to(route('administrador.index'));
+        }
+    }
+
+    public function actualizarDisponibilidad(Request $request)
+    {
+        $sesion = $this->validarVariablesSesion();
+
+        if(empty($sesion[0]) || is_null($sesion[0]) &&
+           empty($sesion[1]) || is_null($sesion[1]) &&
+           empty($sesion[2]) || is_null($sesion[2]) &&
+           empty($sesion[3]) || is_null($sesion[3]) &&
+           $sesion[2] != true)
+        {
+            return redirect()->to(route('home'));
+        } else
+        {
+            return new DisponibilidadUpdate();
         }
     }
 }

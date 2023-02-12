@@ -63,13 +63,6 @@
                             <li class="nav-item">
                                 <a href="{{route('trainer.index')}}" class="nav-link" aria-current="page">Trainer's Sessions</a>
                             </li>
-                        {{-- @elseif(Request::path() == "trainer/create")
-                            <li role="presentation">
-                                <a href="{{route('trainer.index')}}">Trainer's Sessions</a>
-                            </li>
-                            <li role="presentation" class="active">
-                                <a href="{{route('trainer.create')}}">Trainer's Agenda</a>
-                            </li> --}}
                         @else
                             <li class="nav-item">
                                 <a href="{{route('trainer.create')}}" class="nav-link" aria-current="page">Trainer's Agenda</a>
@@ -94,13 +87,6 @@
                             <li class="nav-item">
                                 <a href="#" class="nav-link" aria-current="page">Reservas</a>
                             </li>
-                        {{-- @elseif(Request::path == "student/create")
-                            <li role="presentation">
-                                <a href="#">Diponibilidad Entrenadores</a>
-                            </li>
-                            <li role="presentation" class="active">
-                                <a href="#">Reservas</a>
-                            </li> --}}
                         @else
                             <li class="nav-item">
                                 <a href="#" class="nav-link" aria-current="page">Diponibilidad Entrenadores</a>

@@ -51,6 +51,7 @@ class UsuariosShow implements Responsable
                             ->whereNull('residencia.deleted_at')
                             ->whereNull('roles.deleted_at')
                             ->whereNull('niveles.deleted_at')
+                            ->orderBy('usuarios.id_user', 'DESC')
                             ->get()
                             ->toarray();
 
