@@ -14,8 +14,6 @@ class AddColumnIdTipoIngles extends Migration
     public function up()
     {
         Schema::table('usuarios', function (Blueprint $table) {
-            $table->integer('id_tipo_ingles')->after('id_nivel')->nullable();
-
             $table->foreign('id_tipo_ingles')->references('id')->on('tipo_ingles');
         });
     }
@@ -28,7 +26,7 @@ class AddColumnIdTipoIngles extends Migration
     public function down()
     {
         Schema::table('usuarios', function (Blueprint $table) {
-            $table->dropColumn('id_tipo_ingles');
+            //
         });
     }
 }
