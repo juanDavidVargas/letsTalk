@@ -8634,7 +8634,7 @@ CREATE TABLE `usuarios` (
   `skype` varchar(191) DEFAULT NULL,
   `zoom` varchar(191) DEFAULT NULL,
   `id_nivel` int(10) UNSIGNED DEFAULT NULL,
-  `id_tipo_ingles` int(11) DEFAULT NULL,
+  `id_tipo_ingles` int(10) DEFAULT NULL,
   `clave_fallas` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
