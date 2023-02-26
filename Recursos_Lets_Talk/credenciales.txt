@@ -1,0 +1,82 @@
+Administrador
+username: jvargas
+Password: juvape
+
+Entrenador
+username: jvargas1
+password: juvape1
+
+Estudiante
+username: jvargas2
+password: juvape2
+
+FIGMA:
+https://www.figma.com/file/ewJtv7VwCukoDHplPmUNly/Untitled?node-id=0%3A1&t=SFIOZaC9HiovHDXd-0
+
+TRELLO:
+https://trello.com/b/U9wyz7VG/lets-talk
+
+Link instrucciones DataTable:
+https://www.itsolutionstuff.com/post/laravel-7-yajra-datatables-exampleexample.html
+
+GIT
+https://github.com/juanDavidVargas/letsTalk.git
+
+Creo la Nueva rama a partir de la rama "main"
+git checkout -b jgmc main
+
+Le informo al Git la creación de la nueva rama
+git push --set-upstream origin jgmc
+
+# DB_HOST=jgmcdigital.com
+# DB_PORT=3306
+# DB_DATABASE=jgmcdigi_lets_talk
+# DB_USERNAME=jgmcdigi_letstalk
+# DB_PASSWORD=Lets_Talk2023*
+
+https://datatables.net/download/
+
+{{-- <script src="{{asset('moment/moment.js')}}"></script> --}}
+
+{{-- <script src=//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js></script> --}}
+{{-- <script src=//cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js></script> --}}
+{{-- <script src=//cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js></script> --}}
+{{-- <script src=//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js></script> --}}
+{{-- <script src=//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js></script> --}}
+{{-- <script src=//cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js></script> --}}
+{{-- <script src=//cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js></script> --}}
+
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class AddColumnIdTipoIngles extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::table('usuarios', function (Blueprint $table) {
+            // $table->integer('id_tipo_ingles')->after('id_nivel')->nullable();
+
+            $table->foreign('id_tipo_ingles')->references('id')->on('tipo_ingles');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::table('usuarios', function (Blueprint $table) {
+            // $table->dropColumn('id_tipo_ingles');
+        });
+    }
+}
